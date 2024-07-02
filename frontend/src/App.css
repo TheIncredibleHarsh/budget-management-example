@@ -1,0 +1,8 @@
+body {
+  background: #ebe5ff;
+  font-family: "Lato-regular";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+}
