@@ -12,7 +12,9 @@ const iconMap: IHash = {
      ['settings']: "\uec16",
      ['about']: "\uebf8",
      ['search']: "\uec15",
-     ['plus']: "\ue995"
+     ['plus']: "\ue995",
+     ['up-arrow']: "\ueb5e",
+     ['down-arrow']: "\ueb61",
 };
 
 const Icon = ({type, color}:{type: string, color?: string}) => {

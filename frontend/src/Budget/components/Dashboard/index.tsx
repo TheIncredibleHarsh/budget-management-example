@@ -1,5 +1,6 @@
 import Header from "../../../shared/components/Header";
 import { PageContainer, StyledContainer, WidgetsContainer } from "./Styles";
+import ReportWidget from "./Widgets/ReportWidget";
 import { WidgetContainerSm } from "./Widgets/Styles";
 import TransactionsWidget from "./Widgets/TransactionsWidget";
 
@@ -11,7 +12,7 @@ const Dashboard = () => {
             </StyledContainer>
             <WidgetsContainer>
                 <TransactionsWidget />
-                <WidgetContainerSm />
+                <ReportWidget />
                 <WidgetContainerSm />
                 <WidgetContainerSm />
                 <WidgetContainerSm />

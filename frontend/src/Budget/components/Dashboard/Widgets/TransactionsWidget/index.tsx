@@ -1,12 +1,20 @@
-import Icon from "../../../../../shared/components/Icon";
-import { color } from "../../../../../shared/data";
+import WidgetTitle from "../../../../../shared/components/WidgetTitle";
 import { WidgetContainerSm } from "../Styles"
-import { ListContainer, ListItem, StyledImg, StyledSpan, TitleBox, TransactionAmount, TransactionAmountContainer, TransactionDate, TransactionImageContainer, TransactionTexts, TransactionVendorName } from "./Styles";
+import { ListContainer, ListItem, StyledImg, TransactionAmount, TransactionAmountContainer, TransactionDate, TransactionImageContainer, TransactionTexts, TransactionVendorName } from "./Styles";
 
+//Todo: remove this part and use common data
 const TransactionsWidget =  () => {
     let transactions : Array<ITransaction> = [
         {
             transactionId: 1,
+            transactionVendor: "Salary",
+            transactionImage: "https://example.com/image3.jpg",
+            transactionDate: new Date("2023-01-01"),
+            transactionAmount: 2000.00,
+            transactionType: TransactionType.Income
+        },
+        {
+            transactionId: 6,
             transactionVendor: "Amazon",
             transactionImage: "https://example.com/image1.jpg",
             transactionDate: new Date("2023-01-15"),
@@ -21,14 +29,6 @@ const TransactionsWidget =  () => {
             transactionType: TransactionType.Expense
         },
         {
-            transactionId: 6,
-            transactionVendor: "Salary",
-            transactionImage: "https://example.com/image3.jpg",
-            transactionDate: new Date("2023-05-18"),
-            transactionAmount: 7000.00,
-            transactionType: TransactionType.Income
-        },
-        {
             transactionId: 3,
             transactionVendor: "Apple",
             transactionImage: "https://example.com/image2.jpg",
@@ -38,12 +38,14 @@ const TransactionsWidget =  () => {
         }
     ]
 
+    let widgetTitleProps = {
+        title: "All Transactions",
+        icon: "plus"
+    }
+
     return (
         <WidgetContainerSm>
-            <TitleBox>
-                <StyledSpan>{"All Transactions"}</StyledSpan>
-                <Icon type="plus" color={`${color.accentSecondary}`}/>
-            </TitleBox>
+            <WidgetTitle {...widgetTitleProps}/>
             <ListContainer>
                 {transactions.map(transaction => returnTransactionItem(transaction))}
             </ListContainer>

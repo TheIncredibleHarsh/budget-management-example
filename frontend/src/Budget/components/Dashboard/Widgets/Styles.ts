@@ -9,6 +9,7 @@ export const WidgetContainerSm = styled.div`
     margin: 10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 `
 
 export const WidgetContainerLg = styled.div`
