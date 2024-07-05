@@ -9,11 +9,11 @@ import { TransactionType, transactions } from "../../dashboardData";
 const ReportWidget = () => {
 
     let balance = 1000;
-    let data: number[] = []
-    transactions.map((transaction, index) => {
-        data[index] = balance - (transaction.transactionType === TransactionType.Expense ? transaction.transactionAmount :  (transaction.transactionAmount*-1))
-        balance = data[index]
-    });
+    let data: number[] = [100, 300, 400, 450, 500]
+    // transactions.map((transaction, index) => {
+    //     data[index] = balance - (transaction.transactionType === TransactionType.Expense ? transaction.transactionAmount :  (transaction.transactionAmount*-1))
+    //     balance = data[index]
+    // });
     
     console.log(data)
 
@@ -57,8 +57,6 @@ const ReportWidget = () => {
                     grid={{ vertical: false, horizontal: false }}
                     leftAxis={null}
                     bottomAxis={null}
-                    height={400}
-                    width={400}
                 />
             </StyledCanvas>
         </WidgetContainerSm>

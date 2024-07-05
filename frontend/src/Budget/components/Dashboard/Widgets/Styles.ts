@@ -14,6 +14,12 @@ export const WidgetContainerSm = styled.div`
 
 export const WidgetContainerLg = styled.div`
     height: 250px;
-    width: 800px;
+    width: 620px; // adjust 20px for padding
     background: #fbfaff;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 `

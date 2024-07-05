@@ -49,5 +49,5 @@ export const StyledCanvas = styled.div`
     width: 100%;
     flex: 1;
     overflow: hidden;
-    scale: 1.4
+    margin: 0 -50px -50px;
 `

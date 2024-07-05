@@ -1,3 +1,4 @@
+import { size } from "../../data";
 import { StyledIcon, StyledSpan } from "./Styles";
 
 interface IHash {
@@ -15,12 +16,19 @@ const iconMap: IHash = {
      ['plus']: "\ue995",
      ['up-arrow']: "\ueb5e",
      ['down-arrow']: "\ueb61",
+     ['dollar']: "\ue9fb"
 };
 
-const Icon = ({type, color}:{type: string, color?: string}) => {
+const Icon = ({type, color, size}:{type: string, color?: string, size?: number}) => {
+    
+    let iconParams = {
+        color: color,
+        size: size
+    }
+    
     return (
         <StyledIcon>
-            <StyledSpan color={color}>{iconMap[type]}</StyledSpan>
+            <StyledSpan {...iconParams}>{iconMap[type]}</StyledSpan>
         </StyledIcon>
     )
 }

@@ -7,5 +7,6 @@ export const StyledIcon =  styled.div`
 export const StyledSpan = styled.span`
     font-family: "icon-font";
     color: ${props => props.color};
-    font-size: ${size.navbarIconSize}px;
+    font-size: ${(props : {size?:number, color?:string }) => 
+                   ( props.size == null) ? `${size.navbarIconSize}px` : `${props.size}px`};
 `
