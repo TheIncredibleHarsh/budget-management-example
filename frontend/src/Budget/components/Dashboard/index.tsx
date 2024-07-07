@@ -1,17 +1,19 @@
 import Header from "../../../shared/components/Header";
-import { PageContainer, StyledContainer, WidgetsContainer } from "./Styles";
+import { WidgetsContainer } from "./Styles";
 import AccountsWidget from "./Widgets/AccountsWidget";
-import CardsWidget from "./Widgets/CardsWidget/Index";
+import CardsWidget from "./Widgets/CardsWidget";
 import ExpenseWidget from "./Widgets/ExpenseWidget";
 import ReportWidget from "./Widgets/ReportWidget";
 import { WidgetContainerSm } from "./Widgets/Styles";
 import TransactionsWidget from "./Widgets/TransactionsWidget";
+import { PageContainer, StyledContainer } from "../../../shared/StyledComponents/styles";
+import useCurrentLocation from "../../../shared/hooks/useCurrentLocation";
 
 const Dashboard = () => {
     return (
         <PageContainer>
             <StyledContainer>
-                <Header />
+                <Header title={useCurrentLocation()}/>
             </StyledContainer>
             <WidgetsContainer>
                 <TransactionsWidget />

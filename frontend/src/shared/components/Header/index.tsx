@@ -1,10 +1,10 @@
 import Icon from "../Icon";
 import { HeaderText, StyledHeader, StyledSearchBar, StyledTextInput } from "./Styles";
 
-const Header = () => {
+const Header = ({title}:{title:string}) => {
     return (
         <StyledHeader>
-            <HeaderText>Dashboard</HeaderText>
+            <HeaderText>{title}</HeaderText>
             <StyledSearchBar>
                 <StyledTextInput placeholder="Search">
 
