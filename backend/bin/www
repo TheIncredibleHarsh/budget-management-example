@@ -1,17 +1,21 @@
-const express = require('express')
+const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize(process.env.DB_DATABASENAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    host: 'localhost',
-    dialect: 'postgres'
-  });
+const bodyParser = require('body-parser');
+const unless = require("../Utils/unlessRouteHandler");
+const { authenticate } = require("../Middlewares/authenticationHandler");
 
-console.log(sequelize);
+const userRouter = require("../Routes/users.routes");
+const transactionRouter = require("../Routes/transactions.routes");
+
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(unless(['/users/signup', '/users/login'], authenticate));
+
+app.use('/users', userRouter);
+app.use('/transactions', transactionRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
