@@ -10,32 +10,38 @@ datasource db {
 model User {
   id                Int             @id @default(autoincrement())
   email             String          @unique @db.VarChar(255)
-  encryptedPassword String          @db.VarChar(65535)
-  passwordSalt      String          @db.VarChar(255)
+  encryptedPassword String          @db.VarChar(65535) @map("encrypted_password")
+  passwordSalt      String          @db.VarChar(255) @map("password_salt")
   transactions      Transaction[]
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
 }
 
 model Transaction {
   id                Int             @id @default(autoincrement())
-  transactionAmount Decimal   
-  transactionDate   DateTime        @default(now())
-  transactionType   TransactionType @default(EXPENSE)
-  transactionVendor String          @db.VarChar(255)
+  transactionAmount Decimal         @map("transaction_amount")
+  transactionDate   DateTime        @default(now()) @map("transaction_date")
+  transactionType   TransactionType @default(EXPENSE) @map("transaction_type")
+  transactionVendor String          @db.VarChar(255) @map("transaction_vendor")
   user              User?           @relation(fields: [userId], references: [id])
-  userId            Int
+  userId            Int             @map("user_id")
   comments          String?         @db.VarChar(65535)
-  paymentMethod     PaymentMethod
+  paymentMethod     PaymentMethod   @map("payment_method")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
 }
 
-model Card {
+model CreditCard {
   id                Int             @id @default(autoincrement())
-  cardNo            String          @db.VarChar(127)
-  cardExpiry        DateTime
-}
+  cardNumber        String          @map("card_number")
+  cardHolderName    String          @map("card_holder_name")
+  expirationMonth   Int             @map("expiration_month")
+  expirationYear    Int             @map("expiration_year")
+  cvv               String          @map("cvv")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
 
-model Account {
-  id                Int             @id @default(autoincrement())
-  AccountNumber     String          @db.VarChar(127)
+  @@map("credit_cards")
 }
 
 enum TransactionType {

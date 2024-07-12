@@ -10,7 +10,7 @@ const authenticate = (req, res, next) => {
                 return sendStatus(403);
             }
 
-            req.userId = user.userId;
+            req.userId = user.sub;
             next()
         })
     } else {
