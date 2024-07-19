@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Budget from "../Budget";
 import Dashboard from "../Budget/components/Dashboard";
 import Transactions from "../Budget/components/Transactions";

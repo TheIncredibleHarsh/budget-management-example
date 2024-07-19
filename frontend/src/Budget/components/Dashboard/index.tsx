@@ -8,6 +8,7 @@ import { WidgetContainerSm } from "./Widgets/Styles";
 import TransactionsWidget from "./Widgets/TransactionsWidget";
 import { PageContainer, StyledContainer } from "../../../shared/StyledComponents/styles";
 import useCurrentLocation from "../../../shared/hooks/useCurrentLocation";
+import { useEffect } from "react";
 
 const Dashboard = () => {
     return (

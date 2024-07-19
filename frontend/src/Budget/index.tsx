@@ -2,6 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 import Icon from "../shared/components/Icon";
 import { Logo } from "../shared/components/Logo";
 import { LinkItem, ItemText, LogoLink, NavbarContainer, AboutLink } from "./Styles";
+import Modal from "../shared/components/Modal";
+import CreateTransactionModal from "../shared/components/Modals/CreateTransactionModal";
 
 const Budget = ()=>{
     return (
@@ -22,6 +24,10 @@ const Budget = ()=>{
                     <ItemText><>{"About"}</></ItemText>
                 </AboutLink> 
             </NavbarContainer>
+            <Modal 
+                title="Create Transaction"
+                modalContent={<CreateTransactionModal />}
+            />
             <Outlet />
         </>
     );
