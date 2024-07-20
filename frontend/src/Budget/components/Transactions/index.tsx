@@ -5,7 +5,6 @@ import useCurrentLocation from "../../../shared/hooks/useCurrentLocation";
 import { IndexListContainer } from "./Styles";
 
 const Transactions = () => {
-    console.log(useLocation().pathname.substring(1))
     return (
         <PageContainer>
             <StyledContainer>

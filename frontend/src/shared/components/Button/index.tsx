@@ -1,6 +1,6 @@
 import { SuccessButton, StyledButton } from "./Styles";
 
-const Button = ({type, value, onClick}: {type?: string, value: string, onClick?(target: any):void}) => {
+const Button = ({type, value, handleOnClick}: {type?: string, value: string, handleOnClick?:(transaction: any) => void}) => {
     const buttonParams = {
         type: type
     }
@@ -12,11 +12,11 @@ const Button = ({type, value, onClick}: {type?: string, value: string, onClick?(
 
     switch(type){
         case 'success': {
-            return <SuccessButton>{value}</SuccessButton>;
+            return <SuccessButton onClick={handleOnClick}>{value}</SuccessButton>;
             break;
         }
         default: {
-            return <StyledButton>{value}</StyledButton>
+            return <StyledButton onClick={handleOnClick}>{value}</StyledButton>
         }
     }
 }

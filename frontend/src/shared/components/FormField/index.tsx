@@ -1,8 +1,36 @@
-import { ReactElement } from "react";
+import { BaseSyntheticEvent, ReactElement } from "react";
 import { FormFieldContainer, FormFieldInput, FormFieldLabel, StyledSelect, StyledTextArea } from "./styles";
 import DragDropFiles from "../DragDropFile";
+import { SelectChangeEvent } from "@mui/material";
 
-const FormField = ({label, type, options}:{label: string, type?: string, options?: ReactElement[]}) => {
+const FormField = ({label, type, options, onChange}:{label: string, type?: string, options?: ReactElement[], onChange?: any}) => {
+
+    const renderField = (fieldType: string, options?: ReactElement[]): ReactElement => {
+        switch(fieldType){
+            case "select": {
+                return <StyledSelect onChange={handleSelectChange} value={''}>
+                    {options}
+                </StyledSelect>
+            }
+            case "file": {
+                return <DragDropFiles />
+            }
+            case "textarea": {
+                return <StyledTextArea onChange={handleChange} />
+            }
+            default: {
+                return <FormFieldInput type={fieldType} onChange={handleChange} />
+            }
+        }
+    }
+
+    const handleChange = (e:BaseSyntheticEvent) => {
+        onChange(e.target.value)
+    }
+
+    const handleSelectChange = (e:SelectChangeEvent<unknown>) => {
+        onChange(e.target.value)
+    }
 
     return (
         <FormFieldContainer>
@@ -10,26 +38,6 @@ const FormField = ({label, type, options}:{label: string, type?: string, options
             { type && renderField(type, options) }
         </FormFieldContainer>
     )
-}
-
-const renderField = (fieldType: string, options?: ReactElement[]): ReactElement => {
-    console.log(options)
-    switch(fieldType){
-        case "select": {
-            return <StyledSelect>
-                {options}
-            </StyledSelect>
-        }
-        case "file": {
-            return <DragDropFiles />
-        }
-        case "textarea": {
-            return <StyledTextArea />
-        }
-        default: {
-            return <FormFieldInput type={fieldType}/>
-        }
-    }
 }
 
 export default FormField;

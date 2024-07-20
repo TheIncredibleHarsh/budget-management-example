@@ -15,6 +15,8 @@ model User {
   transactions      Transaction[]
   createdAt         DateTime        @default(now()) @map("created_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  @@map("users")
 }
 
 model Transaction {
@@ -29,6 +31,8 @@ model Transaction {
   paymentMethod     PaymentMethod   @map("payment_method")
   createdAt         DateTime        @default(now()) @map("created_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  @@map("transactions")
 }
 
 model CreditCard {
