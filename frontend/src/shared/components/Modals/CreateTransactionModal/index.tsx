@@ -2,8 +2,9 @@ import { MenuItem } from "@mui/material"
 import Button from "../../Button"
 import FormField from "../../FormField"
 import { ButtonsContainer, FieldsContainer, FormContainer } from "./styles"
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement, useEffect, useMemo, useState } from "react"
 import useTransactionsApi from "../../../hooks/useTransactionsApi"
+import useLookupApi from "../../../hooks/useLookupApi"
 
 const CreateTransactionModal = () => {
     const [amount, setAmount] = useState(0)
@@ -12,22 +13,54 @@ const CreateTransactionModal = () => {
     const [vendor, setVendor] = useState()
     const [paymentMode, setPaymentMode] = useState('')
     const [comments, setComments] = useState('')
-    const [transaction, setTransaction] = useState({});
+    const [transaction, setTransaction] = useState({})
+    const [transactionTypeOptions, setTransactionTypeOptions] = useState<ReactElement[]>([])
+    const [paymentMethodOptions, setPaymentMethodOptions] = useState<ReactElement[]>([])
 
     useEffect(()=>{
         const t = {
-            amount: amount,
-            date: date,
+            transactionAmount: amount,
+            transactionDate: date,
             transactionType: transactionType,
-            vendor: vendor,
-            paymentMode: paymentMode,
+            transactionVendor: vendor,
+            paymentMethod: paymentMode,
             comments: comments
         };
-        console.log(t);
         setTransaction(t);
     },[amount, date, transactionType, vendor, paymentMode, comments])
 
     const {createTransaction} = useTransactionsApi()
+    const {fetchLookupData} = useLookupApi()
+
+    useEffect(() => {
+        fetchLookupData("transactionType")
+            .then(result => {
+                if(result.length >= 0){
+                    let options = new Array<ReactElement>;
+                    result.map(option => {
+                        options.push(<MenuItem value={option.id}>{option.name}</MenuItem>)
+                    })
+                    
+                    setTransactionTypeOptions(options)
+                }
+            }) // useMemo?
+            
+    }, [])
+
+    useEffect(() => {
+        fetchLookupData("paymentMethod")
+            .then(result => {
+                if(result.length >= 0){
+                    let options = new Array<ReactElement>;
+                    result.map(option => {
+                        options.push(<MenuItem value={option.id}>{option.name}</MenuItem>)
+                    })
+                    
+                    setPaymentMethodOptions(options)
+                }
+            }) // useMemo?
+            
+    }, [])
     
     return (
         <FormContainer>
@@ -35,9 +68,9 @@ const CreateTransactionModal = () => {
                 <FormField label=""                     type="file"     />
                 <FormField label="Amount"               type="number"   onChange={setAmount}/>
                 <FormField label="Date"                 type="date"     onChange={setDate}/>
-                <FormField label="Transaction type"     type="select"   onChange={setTransactionType}   options={transactionTypeOptions()}/>
+                <FormField label="Transaction type"     type="select"   onChange={setTransactionType}   options={transactionTypeOptions}/>
                 <FormField label="Vendor Name"          type="text"     onChange={setVendor}/>
-                <FormField label="Payment Mode"         type="select"   onChange={setPaymentMode}/>
+                <FormField label="Payment Mode"         type="select"   onChange={setPaymentMode}       options={paymentMethodOptions}/>
                 <FormField label="Comments"             type="textarea" onChange={setComments}/>
             </FieldsContainer>
             <ButtonsContainer>
@@ -46,14 +79,6 @@ const CreateTransactionModal = () => {
             </ButtonsContainer>
         </FormContainer>
     )
-}
-
-const transactionTypeOptions = ():ReactElement[] => {
-    let options: ReactElement[] = [];
-    ['Income', 'Expense'].map(option => {
-        options.push(<MenuItem value={option}>{option}</MenuItem>)
-    })
-    return options;
 }
 
 export default CreateTransactionModal

@@ -6,11 +6,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node ./bin/www"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.14.11",
     "concurrently": "^8.2.2",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "@prisma/client": "^5.16.2",

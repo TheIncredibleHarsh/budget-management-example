@@ -4,8 +4,13 @@ import urlBuilder from "../utils/urlBuilder";
 const useTransactionsApi = () => {
     const base_url = "http://localhost:3000";
     const createTransaction = (transaction: any) => {
-        axios.post(urlBuilder(base_url, '/transactions'), transaction)
-            .then(response => console.log(response));
+        try{
+            axios.post(urlBuilder(base_url, '/transactions'), {transaction: transaction})
+                .then(response => console.log(response));
+        } catch (err:any) {
+            console.log(err.message)
+        }
+
     }
 
     return {createTransaction}

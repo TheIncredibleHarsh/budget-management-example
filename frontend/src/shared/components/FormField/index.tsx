@@ -8,7 +8,7 @@ const FormField = ({label, type, options, onChange}:{label: string, type?: strin
     const renderField = (fieldType: string, options?: ReactElement[]): ReactElement => {
         switch(fieldType){
             case "select": {
-                return <StyledSelect onChange={handleSelectChange} value={''}>
+                return <StyledSelect onChange={handleSelectChange}>
                     {options}
                 </StyledSelect>
             }
@@ -25,7 +25,11 @@ const FormField = ({label, type, options, onChange}:{label: string, type?: strin
     }
 
     const handleChange = (e:BaseSyntheticEvent) => {
-        onChange(e.target.value)
+        if(e.target.type == "date") {
+            onChange(new Date(e.target.value).toISOString());
+        } else {
+            onChange(e.target.value);
+        }
     }
 
     const handleSelectChange = (e:SelectChangeEvent<unknown>) => {
