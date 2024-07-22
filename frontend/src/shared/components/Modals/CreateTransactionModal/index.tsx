@@ -2,7 +2,7 @@ import { MenuItem } from "@mui/material"
 import Button from "../../Button"
 import FormField from "../../FormField"
 import { ButtonsContainer, FieldsContainer, FormContainer } from "./styles"
-import { ReactElement, useEffect, useMemo, useState } from "react"
+import { ReactElement, useEffect, useState } from "react"
 import useTransactionsApi from "../../../hooks/useTransactionsApi"
 import useLookupApi from "../../../hooks/useLookupApi"
 
@@ -21,9 +21,9 @@ const CreateTransactionModal = () => {
         const t = {
             transactionAmount: amount,
             transactionDate: date,
-            transactionType: transactionType,
+            transactionTypeId: transactionType,
             transactionVendor: vendor,
-            paymentMethod: paymentMode,
+            paymentMethodId: paymentMode,
             comments: comments
         };
         setTransaction(t);

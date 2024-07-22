@@ -1,16 +1,28 @@
 import axios from "axios";
 import urlBuilder from "../utils/urlBuilder";
+import { useLoading } from "./useLoading";
 
 const useTransactionsApi = () => {
+    const {setLoading} = useLoading();
+    // console.log(loading)
+    // setLoading && setLoading(true)
+    // console.log(loading)
     const base_url = "http://localhost:3000";
     const createTransaction = (transaction: any) => {
+        setLoading && setLoading(true)
         try{
             axios.post(urlBuilder(base_url, '/transactions'), {transaction: transaction})
-                .then(response => console.log(response));
+                .then(_ => {
+                    // console.log(response)
+                    setLoading && setLoading(false)
+                })
+                .catch(() => {
+                    setLoading && setLoading(false)
+                });
         } catch (err:any) {
-            console.log(err.message)
+            debugger
+            setLoading && setLoading(false)
         }
-
     }
 
     return {createTransaction}

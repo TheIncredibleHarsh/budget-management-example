@@ -3,6 +3,7 @@ import '@/App.css'
 import { RouterProvider } from 'react-router-dom'
 import useToken from "../shared/hooks/useToken.ts"
 import axios from "axios"
+import { LoadingProvider } from "../shared/hooks/useLoading.tsx"
 
 function App() {
 
@@ -11,9 +12,11 @@ function App() {
   
   return (
     <>
-      <RouterProvider 
-        router={router}
-      />
+      <LoadingProvider>
+        <RouterProvider 
+          router={router}
+        />
+      </LoadingProvider>
     </>
   )
 }
