@@ -6,6 +6,8 @@ import { ReactElement, useEffect, useState } from "react"
 import useTransactionsApi from "../../../hooks/useTransactionsApi"
 import useLookupApi from "../../../hooks/useLookupApi"
 import useOpenModal from "../../../hooks/useOpenModal"
+import { useLoading } from "../../../hooks/useLoading"
+import { toast } from "react-toastify"
 
 const CreateTransactionModal = () => {
     const [amount, setAmount] = useState(0)
@@ -17,6 +19,7 @@ const CreateTransactionModal = () => {
     const [transaction, setTransaction] = useState({})
     const [transactionTypeOptions, setTransactionTypeOptions] = useState<ReactElement[]>([])
     const [paymentMethodOptions, setPaymentMethodOptions] = useState<ReactElement[]>([])
+    const {setLoading} = useLoading()
 
     useEffect(()=>{
         const t = {
@@ -33,6 +36,20 @@ const CreateTransactionModal = () => {
     const {createTransaction} = useTransactionsApi()
     const {fetchLookupData} = useLookupApi()
     const {setModalClose} = useOpenModal()
+
+    const handleCreateAction = ()=>{
+        setLoading && setLoading(true)
+
+        createTransaction(transaction).then(() => {
+            setLoading && setLoading(false)
+            closeModal()
+            toast("Transaction created!")
+        })
+    }
+
+    const closeModal = () => {
+        setModalClose("createTransaction");
+    }
 
     useEffect(() => {
         fetchLookupData("transactionType")
@@ -76,7 +93,7 @@ const CreateTransactionModal = () => {
                 <FormField label="Comments"             type="textarea" onChange={setComments}/>
             </FieldsContainer>
             <ButtonsContainer>
-                <Button type="success" value="Create" handleOnClick={() => createTransaction(transaction)}/>
+                <Button type="success" value="Create" handleOnClick={handleCreateAction}/>
                 <Button value="Cancel" handleOnClick={() => setModalClose('createTransaction')}/>
             </ButtonsContainer>
         </FormContainer>

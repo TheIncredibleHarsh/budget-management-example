@@ -2,7 +2,7 @@ import { color } from "../../data";
 import { TitleBox, StyledSpan } from "./Styles";
 import Icon from "../Icon";
 
-const WidgetTitle = ({title, icon, handleCreateAction}:{title: string, icon: string, handleCreateAction: any}) => {
+const WidgetTitle = ({title, icon, handleCreateAction}:{title: string, icon: string, handleCreateAction?: any}) => {
     return(
         <TitleBox>
             <StyledSpan>{title}</StyledSpan>

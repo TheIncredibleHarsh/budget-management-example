@@ -7,6 +7,8 @@ import CreateTransactionModal from "../shared/components/Modals/CreateTransactio
 import { useLoading } from "../shared/hooks/useLoading";
 import LoadingScreen from "../shared/components/LoadingScreen";
 import useOpenModal from "../shared/hooks/useOpenModal";
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Budget = ()=>{
     const {loading} = useLoading();
@@ -20,6 +22,7 @@ const Budget = ()=>{
 
     return (
         <>
+            <ToastContainer position="bottom-left"/>
             {loading && <LoadingScreen />}
             <NavbarContainer>
                 <LogoLink>
