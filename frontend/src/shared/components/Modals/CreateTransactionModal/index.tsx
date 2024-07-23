@@ -5,6 +5,7 @@ import { ButtonsContainer, FieldsContainer, FormContainer } from "./styles"
 import { ReactElement, useEffect, useState } from "react"
 import useTransactionsApi from "../../../hooks/useTransactionsApi"
 import useLookupApi from "../../../hooks/useLookupApi"
+import useOpenModal from "../../../hooks/useOpenModal"
 
 const CreateTransactionModal = () => {
     const [amount, setAmount] = useState(0)
@@ -31,6 +32,7 @@ const CreateTransactionModal = () => {
 
     const {createTransaction} = useTransactionsApi()
     const {fetchLookupData} = useLookupApi()
+    const {setModalClose} = useOpenModal()
 
     useEffect(() => {
         fetchLookupData("transactionType")
@@ -75,7 +77,7 @@ const CreateTransactionModal = () => {
             </FieldsContainer>
             <ButtonsContainer>
                 <Button type="success" value="Create" handleOnClick={() => createTransaction(transaction)}/>
-                <Button value="Cancel" handleOnClick={() => console.log("here")}/>
+                <Button value="Cancel" handleOnClick={() => setModalClose('createTransaction')}/>
             </ButtonsContainer>
         </FormContainer>
     )

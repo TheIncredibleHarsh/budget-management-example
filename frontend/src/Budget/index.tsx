@@ -6,11 +6,17 @@ import Modal from "../shared/components/Modal";
 import CreateTransactionModal from "../shared/components/Modals/CreateTransactionModal";
 import { useLoading } from "../shared/hooks/useLoading";
 import LoadingScreen from "../shared/components/LoadingScreen";
+import useOpenModal from "../shared/hooks/useOpenModal";
 
 const Budget = ()=>{
     const {loading} = useLoading();
     const [searchParams] = useSearchParams();
+    const {setModalClose} = useOpenModal();
     const createModelOpen = searchParams.get('createTransaction');
+
+    const onCloseHandler =() => {
+        setModalClose('createTransaction')
+    }
 
     return (
         <>
@@ -34,6 +40,7 @@ const Budget = ()=>{
             {createModelOpen && <Modal 
                 title="Create Transaction"
                 modalContent={<CreateTransactionModal />}
+                onCloseHandler={onCloseHandler}
             />}
             <Outlet />
         </>

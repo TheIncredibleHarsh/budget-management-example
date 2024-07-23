@@ -4,9 +4,6 @@ import { useLoading } from "./useLoading";
 
 const useTransactionsApi = () => {
     const {setLoading} = useLoading();
-    // console.log(loading)
-    // setLoading && setLoading(true)
-    // console.log(loading)
     const base_url = "http://localhost:3000";
     const createTransaction = (transaction: any) => {
         setLoading && setLoading(true)

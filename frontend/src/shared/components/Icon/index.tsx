@@ -19,7 +19,7 @@ const iconMap: IHash = {
      ['dollar']: "\ue9fb"
 };
 
-const Icon = ({type, color, size}:{type: string, color?: string, size?: number}) => {
+const Icon = ({type, color, size, handleOnClick}:{type: string, color?: string, size?: number, handleOnClick?:any}) => {
     
     let iconParams = {
         color: color,
@@ -27,7 +27,7 @@ const Icon = ({type, color, size}:{type: string, color?: string, size?: number})
     }
     
     return (
-        <StyledIcon>
+        <StyledIcon onClick={handleOnClick}>
             <StyledSpan {...iconParams}>{iconMap[type]}</StyledSpan>
         </StyledIcon>
     )

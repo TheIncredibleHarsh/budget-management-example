@@ -1,9 +1,17 @@
 import WidgetTitle from "../../../../../shared/components/WidgetTitle";
+import useOpenModal from "../../../../../shared/hooks/useOpenModal";
 import { WidgetContainerSm } from "../Styles"
 import { ListContainer, ListItem, StyledImg, TransactionAmount, TransactionAmountContainer, TransactionDate, TransactionImageContainer, TransactionTexts, TransactionVendorName } from "./Styles";
 
 //Todo: remove this part and use common data
 const TransactionsWidget =  () => {
+
+    const {setModalOpen} = useOpenModal();
+
+    const openCreateTransactionModal = () => {
+        setModalOpen("createTransaction");
+    }
+
     let transactions : Array<ITransaction> = [
         {
             transactionId: 1,
@@ -40,7 +48,8 @@ const TransactionsWidget =  () => {
 
     let widgetTitleProps = {
         title: "All Transactions",
-        icon: "plus"
+        icon: "plus",
+        handleCreateAction: openCreateTransactionModal
     }
 
     return (

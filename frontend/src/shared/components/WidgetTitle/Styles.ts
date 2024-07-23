@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { color } from "../../data"
+import Icon from "../Icon"
 
 export const TitleBox = styled.div`
     display: flex;

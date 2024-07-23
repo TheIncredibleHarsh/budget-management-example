@@ -8,9 +8,15 @@ import {
 } from "./Styles";
 import { ReactElement } from "react";
 
-const Modal = ({title, modalContent}:{title:string, modalContent: ReactElement}) => {
+const Modal = ({title, modalContent, onCloseHandler}:{title:string, modalContent: ReactElement, onCloseHandler?: () => void}) => {
+    const handleOnClose = (e:any) =>{
+        if(e.target.id == 'ModalBackdrop'){
+            onCloseHandler && onCloseHandler()
+        }
+    }
+    
     return createPortal(
-        <ModalBackdrop>
+        <ModalBackdrop onClick={handleOnClose} id="ModalBackdrop">
             <ModalContainer>
                 <ModalHeader>
                     <ModalTitle>{title}</ModalTitle>

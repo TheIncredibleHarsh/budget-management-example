@@ -1,11 +1,19 @@
+import { createSearchParams, useSearchParams } from "react-router-dom";
+
 const useOpenModal = () => {
-    const openModal = () => {
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    const setModalOpen = (modalName: string) => {
+        const params = createSearchParams({[modalName]: "true"})
+        setSearchParams(params)
     }
 
-    const closeModal = () => {
-
+    const setModalClose = (modalName: string) => {
+        const urlParams = searchParams
+        urlParams.delete(modalName)
+        setSearchParams(urlParams)
     }
+
+    return { setModalOpen, setModalClose }
 }
 
 export default useOpenModal;
