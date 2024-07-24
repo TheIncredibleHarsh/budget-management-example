@@ -3,7 +3,7 @@ import { color } from "../../data";
 
 export const StyledButton = styled.div`
     height: 35px;
-    width: 100px;    
+    width: ${props => props.size != null ? `${props.size}` : '100'}px;    
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -17,6 +17,15 @@ export const StyledButton = styled.div`
 
     &:active {
         background: rgba(0,0,0,0.3)
+    }
+
+    ${
+        props => props.status == 'pressed' ? `
+            background: rgba(0,0,0,0.3);
+            &:hover {
+                background: rgba(0,0,0,0.3)
+            }
+        ` : ``
     }
 `
 

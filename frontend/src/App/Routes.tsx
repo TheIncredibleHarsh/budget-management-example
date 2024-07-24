@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Budget from "../Budget";
-import Dashboard from "../Budget/components/Dashboard";
-import Transactions from "../Budget/components/Transactions";
+import Dashboard from "../Budget/pages/Dashboard";
+import Transactions from "../Budget/pages/Transactions";
 
 export const router = createBrowserRouter([
     {

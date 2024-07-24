@@ -8,7 +8,7 @@ const useToken = () => {
     let token = localStorage.getItem("token");
     const base_url = import.meta.env.HOST_NAME || "http://localhost:3000";
     if(token){
-       console.log("token exists");
+    //    console.log("token exists");
     } else {
         const user = {
             email: faker.internet.email(),

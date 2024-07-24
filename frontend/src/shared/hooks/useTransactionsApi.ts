@@ -7,7 +7,6 @@ const useTransactionsApi = () => {
     const createTransaction = async (transaction: any) => {
         await axios.post(urlBuilder(base_url, '/transactions'), {transaction: transaction})
             .then(response => {
-                console.log(response)
                 return response
             })
             .catch(() => {

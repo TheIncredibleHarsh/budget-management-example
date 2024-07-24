@@ -16,7 +16,8 @@ const iconMap: IHash = {
      ['plus']: "\ue995",
      ['up-arrow']: "\ueb5e",
      ['down-arrow']: "\ueb61",
-     ['dollar']: "\ue9fb"
+     ['dollar']: "\ue9fb",
+     ['plus-small']: "\ue992"
 };
 
 const Icon = ({type, color, size, handleOnClick}:{type: string, color?: string, size?: number, handleOnClick?:any}) => {
