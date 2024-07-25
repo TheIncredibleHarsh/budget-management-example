@@ -16,7 +16,7 @@ const useTransactionsApi = () => {
     }
 
     const fetchTransactions = async (urlParams?: URLSearchParams) => {
-        let result = await axios.get(urlBuilder(base_url, '/transactions'))
+        let result = await axios.get(urlBuilder(base_url, '/transactions', urlParams?.toString()))
             .then(response => {
                 return response.data
             })

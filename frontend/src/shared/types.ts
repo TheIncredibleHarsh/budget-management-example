@@ -12,3 +12,12 @@ export type IndexItemColumn = {
 export type Transaction = {
 
 }
+
+export type TransactionFilter = {
+    [key: string]: boolean | string | number | undefined,
+    income            :boolean,
+    expense           :boolean,
+    vendor            :string,
+    transactionType   :number | undefined,
+    paymentMode       :number | undefined
+}

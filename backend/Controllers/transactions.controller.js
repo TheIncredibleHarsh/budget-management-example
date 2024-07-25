@@ -16,16 +16,22 @@ const createTransaction = async (req, res, next) => {
 }
 
 const getAllTransactions = async (req, res, next) => {
-    const transactionsList = await prisma.transaction.findMany({
-        where: {
-            userId: req.sub
-        },
-        orderBy: {
-            transactionDate: 'desc'
-        }
-    })
-
-    res.status(200).json(transactionsList);
+    const filters = generateTransactionFilters(req.query)
+    filters['userId'] = req.sub
+    const [count, transactionsList] = await prisma.$transaction([
+        prisma.transaction.count({
+            where: filters
+        }),    
+        prisma.transaction.findMany({
+            where: filters,
+            orderBy: {
+                transactionDate: 'desc'
+            },
+            skip: parseInt(req.query.offset),
+            take: parseInt(req.query.limit)
+        })    
+    ])
+    res.status(200).json({count: count, data: transactionsList});
 }
 
 const getTransactionById = async (req, res, next) => {
@@ -79,4 +85,33 @@ module.exports = {
     getTransactionById,
     updateTransaction,
     deleteTransaction
+}
+
+const generateTransactionFilters = (query) => {
+    filters = {}
+    for(const key in query){
+        const value = query[key]
+
+        switch(key) {
+            case 'vendor': {
+                filters['transactionVendor'] = {contains: value}
+            }
+            case 'transactionType': {
+                if(parseInt(value)){
+                    filters['transactionType'] = {
+                        id: parseInt(value)
+                    }
+                }
+            }
+            case 'paymentMode': {
+                if(parseInt(value)){
+                    filters['paymentMethod'] = {
+                        id: parseInt(value)
+                    }
+                }
+            }
+        }
+    }
+
+    return filters
 }

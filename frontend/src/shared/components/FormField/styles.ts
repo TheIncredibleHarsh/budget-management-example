@@ -20,8 +20,9 @@ export const FormFieldInput = styled.input`
     font-family: "Lato-light";
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 3px;
-    height: 35px;
-    width: 300px;
+    /* height: 35px; */
+    height: ${props => props.height ? `${props.height}px` : `35px`};
+    width: ${props => props.width ? `${props.width}px` : `300px`};;
     &:focus {
         outline: solid 2px ${color.accentSecondary};
         &:hover {
@@ -53,8 +54,8 @@ export const StyledTextArea = styled.textarea`
 `
 
 export const StyledSelect = styled(Select)`
-    height: 38px;
-    width: 308px;    
+    height: ${props => props.height ? `${props.height}px` : `38px`};
+    width: ${props => props.width ? `${props.width}px` : `308px`};;    
     &:hover fieldset {
         /* outline: solid 2px rgba(0, 0, 0, 0.4); */
     }

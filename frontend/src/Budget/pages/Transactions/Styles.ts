@@ -17,7 +17,6 @@ export const IndexListContainer = styled.div`
 
 export const IndexFilterContainer = styled.div`
     height: 40px;
-    border: 1px solid red;
     display: flex;
     column-gap: 5px;
     justify-content: flex-end;
@@ -32,22 +31,23 @@ export const IndexList = styled.div`
 `
 
 export const PaginationContainer = styled.div`
-        border: 1px solid red;
-        height: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 `
 
 export const Filter = styled.div`
     background: #fafafa;
-    height: 100px;
-    width: 400px;
+    height: 200px;
+    width: 450px;
     position: relative;
     left: 300px;
-    top: 72px;
+    top: 127px;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
-    align-items: center;
 `
 
 export const FilterGroup = styled.div`
@@ -55,10 +55,5 @@ export const FilterGroup = styled.div`
     border: 1px solid rgba(0,0,0,0.1);
     min-height: 75px;
     border-radius: 15px;
-`
-
-export const StyledSelect = styled(Select)`
-    height: 25px;
-    position: relative;
-    bottom: 0px;
+    position: absolute;
 `

@@ -2,6 +2,7 @@ import { ReactElement } from "react"
 import { ColorIndicator, HeaderCell, HeaderRow, ListRow, RowCell } from "./Styles"
 import { IndexItemColumn } from "../../../../shared/types"
 import { Transaction } from "../../../../shared/interfaces/Transaction"
+import { stringify } from "querystring"
 
 const currencySymbols = {
     'INR': '₹'
@@ -11,7 +12,7 @@ const IndexListHeader = ({columns, data}:{columns:IndexItemColumn[], data:Transa
     return (
         <>
             <HeaderRow>{generateHeaderCells(columns)}</HeaderRow>
-            {generateRows(data.slice(0,10), columns)}
+            {generateRows(data, columns)}
         </>
     )
 }
