@@ -3,7 +3,24 @@ import { FormFieldContainer, FormFieldInput, FormFieldLabel, StyledSelect, Style
 import DragDropFiles from "../DragDropFile";
 import { SelectChangeEvent } from "@mui/material";
 
-const FormField = ({label, type, options, onChange}:{label: string, type?: string, options?: ReactElement[], onChange?: any}) => {
+const FormField = (
+    {
+        label, 
+        type, 
+        options, 
+        placeHolder, 
+        onChange, 
+        value,
+        maxLength,
+    }:{
+        label: string, 
+        type?: string, 
+        options?: ReactElement[], 
+        placeHolder?: string, 
+        value?:string, 
+        onChange?: any,
+        maxLength?: number
+    }) => {
 
     const renderField = (fieldType: string, options?: ReactElement[]): ReactElement => {
         switch(fieldType){
@@ -19,7 +36,13 @@ const FormField = ({label, type, options, onChange}:{label: string, type?: strin
                 return <StyledTextArea onChange={handleChange} />
             }
             default: {
-                return <FormFieldInput type={fieldType} onChange={handleChange} />
+                return <FormFieldInput 
+                            type={fieldType} 
+                            placeholder={placeHolder} 
+                            onChange={handleChange} 
+                            value={value}
+                            maxLength={maxLength} 
+                        />
             }
         }
     }

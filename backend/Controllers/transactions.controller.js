@@ -95,6 +95,7 @@ const generateTransactionFilters = (query) => {
         switch(key) {
             case 'vendor': {
                 filters['transactionVendor'] = {contains: value}
+                break
             }
             case 'transactionType': {
                 if(parseInt(value)){
@@ -102,6 +103,7 @@ const generateTransactionFilters = (query) => {
                         id: parseInt(value)
                     }
                 }
+                break
             }
             case 'paymentMode': {
                 if(parseInt(value)){
@@ -109,6 +111,7 @@ const generateTransactionFilters = (query) => {
                         id: parseInt(value)
                     }
                 }
+                break
             }
         }
     }

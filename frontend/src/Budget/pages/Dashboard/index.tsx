@@ -18,11 +18,10 @@ const Dashboard = () => {
             </StyledContainer>
             <WidgetsContainer>
                 <TransactionsWidget />
-                <ReportWidget />
+                {/* <ReportWidget /> */}
                 <CardsWidget />
                 <AccountsWidget />
                 <ExpenseWidget />
-                <WidgetContainerSm />
             </WidgetsContainer>
         </PageContainer>
     )

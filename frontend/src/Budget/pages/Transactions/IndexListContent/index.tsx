@@ -2,17 +2,19 @@ import { ReactElement } from "react"
 import { ColorIndicator, HeaderCell, HeaderRow, ListRow, RowCell } from "./Styles"
 import { IndexItemColumn } from "../../../../shared/types"
 import { Transaction } from "../../../../shared/interfaces/Transaction"
-import { stringify } from "querystring"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const currencySymbols = {
     'INR': '₹'
 }
 
-const IndexListHeader = ({columns, data}:{columns:IndexItemColumn[], data:Transaction[]}) => {
+const IndexListHeader = ({columns, data, isLoading}:{columns:IndexItemColumn[], data:Transaction[], isLoading: boolean}) => {
     return (
         <>
             <HeaderRow>{generateHeaderCells(columns)}</HeaderRow>
-            {generateRows(data, columns)}
+            {isLoading ? <Skeleton count={10}/> : generateRows(data, columns)}
+            {/* {generateRows(data, columns)} */}
         </>
     )
 }
@@ -33,7 +35,7 @@ const generateRowCells = (row: Transaction, columns: IndexItemColumn[]) => {
     cells.push(<input type="checkbox" />)
     const color = row.transactionTypeId == 1 ? '#4ade80' : '#f87171'
     cells.push(<ColorIndicator color={color}></ColorIndicator>)
-    let rowPresenter = {
+    let rowPresenter:{[key:string]: any} = {
         id: row.id,
         transactionAmount: `${currencySymbols['INR']}${row.transactionAmount}`,
         paymentMethodId: row.paymentMethodId,

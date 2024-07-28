@@ -11,6 +11,7 @@ import Button from "../../../shared/components/Button";
 import TransactionFilter from "./TransactionFIlter";
 import { TransactionFilter as FilterType} from "../../../shared/types";
 import { Pagination } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const Transactions = () => {
 
@@ -45,6 +46,8 @@ const Transactions = () => {
     const [filterOpen, setFilterOpen] = useState(false)
     const [filter, setFilter] = useState<FilterType>()
     const [searchParams, setSearchParams] = useState(new URLSearchParams([['limit', PAGE_SIZE.toString()], ['offset', '0']]))
+    const [isLoading, setIsLoading] = useState(false)
+    const location = useLocation()
 
     const generateURLParams = () => {
         let param = searchParams;
@@ -75,11 +78,13 @@ const Transactions = () => {
     }
 
     useEffect(() => {
+        setIsLoading(true)
         fetchTransactions(searchParams).then((transactions) => {
+            setIsLoading(false)
             setData(transactions.data)
             setCount(transactions.count)
         })
-    }, [searchParams])
+    }, [searchParams, location])
 
     useEffect(() => {
         generateURLParams()
@@ -112,7 +117,7 @@ const Transactions = () => {
                         <Button {...filterButtonParams} />
                     </IndexFilterContainer>
                     <IndexList>
-                        <IndexListContent columns={headerColumns} data={data}></IndexListContent>
+                        <IndexListContent columns={headerColumns} data={data} isLoading={isLoading}></IndexListContent>
                     </IndexList>
                     <PaginationContainer>
                         <Pagination count={Math.ceil(count/PAGE_SIZE)} variant="outlined" shape="rounded" onChange={handlePaginationChange}/>

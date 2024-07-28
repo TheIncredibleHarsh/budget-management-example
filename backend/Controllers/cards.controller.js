@@ -3,9 +3,22 @@ const prisma = new PrismaClient();
 
 // Get all credit cards
 const getAllCreditCards = async (req, res) => {
+  const filters = generateCardFilters(req)
   try {
-    const creditCards = await prisma.creditCard.findMany();
-    res.status(200).json(creditCards);
+    const [count, creditCards] = await prisma.$transaction([
+      prisma.creditCard.count({
+        where: filters
+      }),    
+      prisma.creditCard.findMany({
+        where: filters,
+        orderBy: {
+            createdAt: 'desc'
+        },
+        skip: parseInt(req.query.offset),
+        take: parseInt(req.query.limit)
+      })    
+    ])
+    res.status(200).json({count: count, data: creditCards});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -30,16 +43,13 @@ const getCreditCardById = async (req, res) => {
 
 // Create a new credit card
 const createCreditCard = async (req, res) => {
-  const { cardNumber, cardHolderName, expirationMonth, expirationYear, cvv } = req.body;
+  const { 
+    card 
+  } = req.body;
   try {
+    console.log(req.body)
     const newCreditCard = await prisma.creditCard.create({
-      data: {
-        cardNumber,
-        cardHolderName,
-        expirationMonth,
-        expirationYear,
-        cvv,
-      },
+      data: card
     });
     res.status(201).json(newCreditCard);
   } catch (error) {
@@ -88,3 +98,36 @@ module.exports = {
   updateCreditCardById,
   deleteCreditCardById,
 };
+
+const generateCardFilters = (req) => {
+  let filters = {}
+  filters['userId'] = req.useId
+  // for(const key in req.query){
+  //     const value = req.query[key]
+
+  //     switch(key) {
+  //         case 'vendor': {
+  //             filters['transactionVendor'] = {contains: value}
+  //             break
+  //         }
+  //         case 'transactionType': {
+  //             if(parseInt(value)){
+  //                 filters['transactionType'] = {
+  //                     id: parseInt(value)
+  //                 }
+  //             }
+  //             break
+  //         }
+  //         case 'paymentMode': {
+  //             if(parseInt(value)){
+  //                 filters['paymentMethod'] = {
+  //                     id: parseInt(value)
+  //                 }
+  //             }
+  //             break
+  //         }
+  //     }
+  // }
+
+  return filters
+}

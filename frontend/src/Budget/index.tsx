@@ -9,15 +9,19 @@ import LoadingScreen from "../shared/components/LoadingScreen";
 import useOpenModal from "../shared/hooks/useOpenModal";
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import CreateCardModal from "../shared/components/Modals/CreateCardModal";
+import CreateAccountModal from "../shared/components/Modals/createAccountModal";
 
 const Budget = ()=>{
     const {loading} = useLoading();
     const [searchParams] = useSearchParams();
     const {setModalClose} = useOpenModal();
-    const createModelOpen = searchParams.get('createTransaction');
+    const createTransactionModalOpen = searchParams.get('createTransaction');
+    const createCardModalOpen = searchParams.get('createCard')
+    const createAccountModalOpen = searchParams.get('createAccount')
 
-    const onCloseHandler =() => {
-        setModalClose('createTransaction')
+    const closeModal =(name: string) => {
+        setModalClose(name)
     }
 
     return (
@@ -40,11 +44,24 @@ const Budget = ()=>{
                     <ItemText><>{"About"}</></ItemText>
                 </AboutLink> 
             </NavbarContainer>
-            {createModelOpen && <Modal 
+            {createTransactionModalOpen && <Modal 
                 title="Create Transaction"
                 modalContent={<CreateTransactionModal />}
-                onCloseHandler={onCloseHandler}
+                onCloseHandler={() => {closeModal('createTransaction')}}
             />}
+
+            {createCardModalOpen && <Modal 
+                title="Create Card"
+                modalContent={<CreateCardModal />}
+                onCloseHandler={()=>closeModal('createCard')}
+            />}
+
+            {createAccountModalOpen && <Modal 
+                title="Create Account"
+                modalContent={<CreateAccountModal />}
+                onCloseHandler={()=>closeModal('createAccount')}
+            />}
+
             <Outlet />
         </>
     );

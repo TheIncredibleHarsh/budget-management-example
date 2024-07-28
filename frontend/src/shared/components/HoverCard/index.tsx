@@ -1,31 +1,31 @@
-import { CardBackdropFilter, StyledCard, CardType, CardNumber, CardAmount, Cards } from "./Styles"
+import { CardBackdropFilter, StyledCard, CardType, CardNumber, CardExpiration, Cards } from "./Styles"
 
-const Card = () => {
+const HoverCard = () => {
     return (
         <Cards>
             <StyledCard>
                 <CardBackdropFilter>
                     <CardType>VISA</CardType>
                     <CardNumber>1234 5678 8765 4321</CardNumber>
-                    <CardAmount>5432</CardAmount>
+                    <CardExpiration>5432</CardExpiration>
                 </CardBackdropFilter>
             </StyledCard>
             <StyledCard>
                 <CardBackdropFilter>
                     <CardType>VISA</CardType>
                     <CardNumber>1234 5678 8765 4321</CardNumber>
-                    <CardAmount>5432</CardAmount>
+                    <CardExpiration>5432</CardExpiration>
                 </CardBackdropFilter>
             </StyledCard>
             <StyledCard>
                 <CardBackdropFilter>
                     <CardType>VISA</CardType>
                     <CardNumber>1234 5678 8765 4321</CardNumber>
-                    <CardAmount>5432</CardAmount>
+                    <CardExpiration>5432</CardExpiration>
                 </CardBackdropFilter>
             </StyledCard>
         </Cards>
     )
 }
 
-export default Card;
+export default HoverCard;

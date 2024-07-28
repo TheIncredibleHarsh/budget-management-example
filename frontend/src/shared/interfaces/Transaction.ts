@@ -1,3 +1,5 @@
+// Move this to Types file
+
 export type Transaction = {
     id: number,
     transactionAmount: number | string,

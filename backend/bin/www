@@ -8,6 +8,8 @@ const { authenticate } = require("../Middlewares/authenticationHandler");
 const userRouter = require("../Routes/users.routes");
 const transactionRouter = require("../Routes/transactions.routes");
 const lookupRouter = require("../Routes/lookup.routes");
+const cardsRouter = require("../Routes/cards.routes")
+const accountsRouter = require("../Routes/accounts.routes")
 
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 3000;
 
@@ -20,6 +22,8 @@ app.use(unless(['/users/signup', '/users/login'], authenticate));
 app.use('/users', userRouter);
 app.use('/transactions', transactionRouter);
 app.use('/lookup', lookupRouter);
+app.use('/cards', cardsRouter)
+app.use('/accounts', accountsRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

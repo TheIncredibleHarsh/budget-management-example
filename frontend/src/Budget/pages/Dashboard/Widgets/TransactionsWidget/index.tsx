@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import WidgetTitle from "../../../../../shared/components/WidgetTitle";
 import useOpenModal from "../../../../../shared/hooks/useOpenModal";
+import useTransactionsApi from "../../../../../shared/hooks/useTransactionsApi";
 import { WidgetContainerSm } from "../Styles"
 import { ListContainer, ListItem, StyledImg, TransactionAmount, TransactionAmountContainer, TransactionDate, TransactionImageContainer, TransactionTexts, TransactionVendorName } from "./Styles";
 
@@ -7,50 +9,28 @@ import { ListContainer, ListItem, StyledImg, TransactionAmount, TransactionAmoun
 const TransactionsWidget =  () => {
 
     const {setModalOpen} = useOpenModal();
+    const {fetchTransactions} = useTransactionsApi();
+    const [transactions, settransations] = useState<Array<ITransaction>>([]);
+
 
     const openCreateTransactionModal = () => {
         setModalOpen("createTransaction");
     }
-
-    let transactions : Array<ITransaction> = [
-        {
-            transactionId: 1,
-            transactionVendor: "Salary",
-            transactionImage: "https://example.com/image3.jpg",
-            transactionDate: new Date("2023-01-01"),
-            transactionAmount: 2000.00,
-            transactionType: TransactionType.Income
-        },
-        {
-            transactionId: 6,
-            transactionVendor: "Amazon",
-            transactionImage: "https://example.com/image1.jpg",
-            transactionDate: new Date("2023-01-15"),
-            transactionAmount: 120.50,
-            transactionType: TransactionType.Expense
-        },
-        {
-            transactionId: 2,
-            transactionVendor: "Walmart",
-            transactionDate: new Date("2023-02-20"),
-            transactionAmount: 89.99,
-            transactionType: TransactionType.Expense
-        },
-        {
-            transactionId: 3,
-            transactionVendor: "Apple",
-            transactionImage: "https://example.com/image2.jpg",
-            transactionDate: new Date("2023-03-05"),
-            transactionAmount: 1999.99,
-            transactionType: TransactionType.Expense
-        }
-    ]
 
     let widgetTitleProps = {
         title: "All Transactions",
         icon: "plus",
         handleCreateAction: openCreateTransactionModal
     }
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams();
+        searchParams.set('limit', '4');
+        searchParams.set('offset', '0');
+        fetchTransactions(searchParams).then(result => {
+            settransations(result.data);
+        })
+    }, [])
 
     return (
         <WidgetContainerSm>
@@ -88,7 +68,7 @@ const returnTransactionItem = (transaction:ITransaction) => {
             </TransactionImageContainer>
             <TransactionTexts>
                 <TransactionVendorName>{transaction.transactionVendor}</TransactionVendorName>
-                <TransactionDate>{transaction.transactionDate.toDateString()}</TransactionDate>
+                <TransactionDate>{new Date(transaction.transactionDate).toDateString()}</TransactionDate>
             </TransactionTexts>
             <TransactionAmountContainer>
                 <TransactionAmount {...transactionAmountProps}>{transaction.transactionAmount}</TransactionAmount>
