@@ -12,7 +12,7 @@ export const StyledButton = styled.div`
     cursor: pointer;
 
     &:hover {
-        background: rgba(0,0,0,0.1)
+        background: rgba(0,0,0,0.2)
     }
 
     &:active {
@@ -32,7 +32,7 @@ export const StyledButton = styled.div`
 export const SuccessButton = styled(StyledButton)`
     background: ${color.accentSecondary};
     &:hover {
-        background: ${color.accentSecondaryHover}
+        background: ${color.accentSecondary}
     }
 
     &:active {

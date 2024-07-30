@@ -3,7 +3,7 @@ import { color, size } from "../../../shared/data";
 
 export const NavbarContainer = styled.div`
     display: inline-block;
-    background: ${color.backgroundLighest};
+    background: #eaeef2;
     position: fixed;
     left: ${size.navbarWidth}px;
     height: 100vh;

@@ -28,6 +28,7 @@ const useToken = () => {
                 .then(data => {
                     if(data.token){
                         localStorage.setItem('token', data.token);
+                        localStorage.setItem('userId', data.userId);
                     } else {
                         throw("Error");
                     }

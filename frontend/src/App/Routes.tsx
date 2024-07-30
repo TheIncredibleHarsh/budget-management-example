@@ -5,6 +5,8 @@ import Transactions from "../Budget/pages/Transactions";
 import Cards from "../Budget/pages/Cards";
 import Accounts from "../Budget/pages/Accounts";
 import Settings from "../Budget/pages/Settings";
+import ProfileSettings from "../Budget/pages/Settings/ProfileSettings";
+import AppSettings from "../Budget/pages/Settings/AppSettings";
 
 export const router = createBrowserRouter([
     {
@@ -29,7 +31,17 @@ export const router = createBrowserRouter([
             },
             {
                 path: "settings",
-                element: <Settings />
+                element: <Settings />,
+                children: [
+                    {
+                        path: "profile",
+                        element: <ProfileSettings />
+                    },
+                    {
+                        path: "config",
+                        element: <AppSettings />
+                    }
+                ]
             }
         ]
     }

@@ -1,16 +1,19 @@
 import { NavLink, Outlet, useSearchParams } from "react-router-dom";
+import {ToastContainer} from 'react-toastify'
+
 import Icon from "../shared/components/Icon";
 import { Logo } from "../shared/components/Logo";
 import { LinkItem, ItemText, LogoLink, NavbarContainer, AboutLink } from "./Styles";
 import Modal from "../shared/components/Modal";
 import CreateTransactionModal from "../shared/components/Modals/CreateTransactionModal";
-import { useLoading } from "../shared/hooks/useLoading";
 import LoadingScreen from "../shared/components/LoadingScreen";
-import useOpenModal from "../shared/hooks/useOpenModal";
-import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import CreateCardModal from "../shared/components/Modals/CreateCardModal";
 import CreateAccountModal from "../shared/components/Modals/createAccountModal";
+
+import useOpenModal from "../shared/hooks/useOpenModal";
+import { useLoading } from "../shared/hooks/useLoading";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Budget = ()=>{
     const {loading} = useLoading();

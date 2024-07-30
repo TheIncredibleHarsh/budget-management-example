@@ -41,3 +41,12 @@ export type TAccount = {
     swiftCode           :string,
     currentBalance      :number
 }
+
+export type TUserProfile = {
+    id                  :number | undefined,
+    firstName           :string | undefined,
+    lastName            :string | undefined,
+    phoneNumber         :string | undefined,
+    email               :string | undefined,
+}
+

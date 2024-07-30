@@ -1,4 +1,3 @@
-import { size } from "../../data";
 import { StyledIcon, StyledSpan } from "./Styles";
 
 interface IHash {
@@ -21,6 +20,8 @@ const iconMap: IHash = {
      ['account']: "\uebc7",
      ['app-settings']: "\uec17",
      ['notification']: "\uecd5",
+     ['edit']: "\uecdc",
+     ['delete']: "\uebe1",
 };
 
 const Icon = ({type, color, size, handleOnClick}:{type: string, color?: string, size?: number, handleOnClick?:any}) => {
