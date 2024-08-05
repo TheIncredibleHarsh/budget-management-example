@@ -13,7 +13,7 @@ const IndexListHeader = ({columns, data, isLoading}:{columns:IndexItemColumn[], 
     return (
         <>
             <HeaderRow key={1}>{generateHeaderCells(columns)}</HeaderRow>
-            {isLoading ? <Skeleton count={10}/> : generateRows(data, columns)}
+            {isLoading ? <Skeleton height={65} count={3}/> : generateRows(data, columns)}
             {/* {generateRows(data, columns)} */}
         </>
     )

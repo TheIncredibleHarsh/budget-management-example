@@ -4,6 +4,7 @@ import useOpenModal from "../../../../../shared/hooks/useOpenModal";
 import useTransactionsApi from "../../../../../shared/hooks/useTransactionsApi";
 import { WidgetContainerSm } from "../Styles"
 import { ListContainer, ListItem, StyledImg, TransactionAmount, TransactionAmountContainer, TransactionDate, TransactionImageContainer, TransactionTexts, TransactionVendorName } from "./Styles";
+import Skeleton from "react-loading-skeleton";
 
 //Todo: remove this part and use common data
 const TransactionsWidget =  () => {
@@ -11,6 +12,7 @@ const TransactionsWidget =  () => {
     const {setModalOpen} = useOpenModal();
     const {fetchTransactions} = useTransactionsApi();
     const [transactions, settransations] = useState<Array<ITransaction>>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     const openCreateTransactionModal = () => {
@@ -27,8 +29,10 @@ const TransactionsWidget =  () => {
         const searchParams = new URLSearchParams();
         searchParams.set('limit', '4');
         searchParams.set('offset', '0');
+        setIsLoading(true)
         fetchTransactions(searchParams).then(result => {
             settransations(result.data);
+            setIsLoading(false)
         })
     }, [])
 
@@ -36,16 +40,12 @@ const TransactionsWidget =  () => {
         <WidgetContainerSm>
             <WidgetTitle {...widgetTitleProps}/>
             <ListContainer>
-                {transactions.map(transaction => returnTransactionItem(transaction))}
+                {isLoading? <Skeleton height={30} count={5}/> : transactions.map(transaction => returnTransactionItem(transaction))}
             </ListContainer>
         </WidgetContainerSm>
     )
 }
 
-enum TransactionType {
-    Income,
-    Expense
-}
 
 interface ITransaction {
     transactionId: number,
@@ -53,13 +53,14 @@ interface ITransaction {
     transactionImage?: string,
     transactionDate: Date,
     transactionAmount: number,
-    transactionType: TransactionType
+    transactionType: any
+    transactionTypeId: number
 }
 
 
 const returnTransactionItem = (transaction:ITransaction) => {
     const transactionAmountProps = {
-        color: transaction.transactionType === TransactionType.Income ? "green" : "red"
+        color: transaction.transactionTypeId == 1 ? "green" : "red"
     }
     return (
         <ListItem>

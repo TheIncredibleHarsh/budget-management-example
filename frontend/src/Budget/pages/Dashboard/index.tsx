@@ -21,7 +21,7 @@ const Dashboard = () => {
                 {/* <ReportWidget /> */}
                 <CardsWidget />
                 <AccountsWidget />
-                <ExpenseWidget />
+                {/* <ExpenseWidget /> */}
             </WidgetsContainer>
         </PageContainer>
     )

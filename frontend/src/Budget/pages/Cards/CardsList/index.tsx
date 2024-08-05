@@ -8,27 +8,7 @@ const CardsList =  ({data}: {data: TCard[]}) => {
     const card = data[0]
     if(card == undefined){
         return (<>
-            <CardItemContainer>
-                <CardDisplay card={card}/>
-                    <CardInfo>
-                        <CardName><Skeleton /></CardName>
-                        <ValidTill><Skeleton /></ValidTill>
-                </CardInfo>
-            </CardItemContainer>
-            <CardItemContainer>
-                <CardDisplay card={card}/>
-                    <CardInfo>
-                        <CardName><Skeleton /></CardName>
-                        <ValidTill><Skeleton /></ValidTill>
-                </CardInfo>
-            </CardItemContainer>
-            <CardItemContainer>
-                <CardDisplay card={card}/>
-                    <CardInfo>
-                        <CardName><Skeleton /></CardName>
-                        <ValidTill><Skeleton /></ValidTill>
-                </CardInfo>
-            </CardItemContainer>
+            <Skeleton height={150} count={3}/>
         </>)
     }
     return (
@@ -59,22 +39,20 @@ const generateCardItems:(cards:TCard[]) => JSX.Element[] = (cards:TCard[]) => {
 const CardDisplay = ({card}:{card:TCard}) => {
     if(card != undefined){
         let cardType = card.cardNumber.startsWith('4') ? 'VISA' : (card.cardNumber.startsWith('5') ? 'MASTER CARD' : 'RUPAY')
+        let maskedCardNumber = card.cardNumber.replace(/(?<!^..).(?=.{3})/g, '*')
+        console.log(maskedCardNumber)
         return (
             <StyledCard>
                 <CardBackdropFilter>
                     <CardType>{cardType}</CardType>
-                    <CardNumber>{card.cardNumber}</CardNumber>
+                    <CardNumber>{maskedCardNumber}</CardNumber>
                     <CardExpiration>{`${card.expirationMonth}/${card.expirationYear}`}</CardExpiration>
                 </CardBackdropFilter>
             </StyledCard>
         )
     } else {
         return <StyledCard>
-                    <CardBackdropFilter>
-                        <CardType><Skeleton /></CardType>
-                        <CardNumber><Skeleton /></CardNumber>
-                        <CardExpiration><Skeleton /></CardExpiration>
-                    </CardBackdropFilter>
+                    <Skeleton height={100} count={1}/>
                 </StyledCard>
     }
     
