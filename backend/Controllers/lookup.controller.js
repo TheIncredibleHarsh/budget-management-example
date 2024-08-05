@@ -23,6 +23,10 @@ const fetchLookupData = async (req, res, next) => {
                 fetchPaymentMethodLookup(user).then(result => res.status(200).json(result))
                 break
             }
+            case 'category': {
+                fetchCategoryLookup(user).then(result => res.status(200).json(result))
+                break
+            }
             default: {
                 res.sendStatus(400);
             }
@@ -41,6 +45,11 @@ const fetchTransactionTypeLookup = async (user) => {
 const fetchPaymentMethodLookup = async (user) => {
     const paymentMethods = await prisma.paymentMethod.findMany()
     return paymentMethods;
+}
+
+const fetchCategoryLookup = async (user) => {
+    const categories = await prisma.transactionCategory.findMany()
+    return categories;
 }
 
 module.exports = {fetchLookupData}

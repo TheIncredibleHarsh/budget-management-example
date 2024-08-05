@@ -28,7 +28,12 @@ const getAllTransactions = async (req, res, next) => {
                 transactionDate: 'desc'
             },
             skip: parseInt(req.query.offset),
-            take: parseInt(req.query.limit)
+            take: parseInt(req.query.limit),
+            include: {
+                transactionType: true,
+                paymentMethod: true,
+                transactionCategory: true
+            }
         })    
     ])
     res.status(200).json({count: count, data: transactionsList});

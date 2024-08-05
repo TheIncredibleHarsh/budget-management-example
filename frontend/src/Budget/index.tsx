@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useSearchParams } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import {ToastContainer} from 'react-toastify'
 
 import Icon from "../shared/components/Icon";
@@ -78,7 +78,7 @@ const generateItem = (text:string, iconType:string, toLink:string) => {
         color: 'white'
     }
     return (
-        <LinkItem {...itemProps}>
+        <LinkItem {...itemProps} currentRoute={location.pathname}>
             <Icon {...iconProps}/>
             <ItemText><>{text}</></ItemText>
         </LinkItem>

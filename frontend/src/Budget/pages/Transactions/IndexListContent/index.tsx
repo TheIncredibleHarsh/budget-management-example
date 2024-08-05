@@ -12,7 +12,7 @@ const currencySymbols = {
 const IndexListHeader = ({columns, data, isLoading}:{columns:IndexItemColumn[], data:Transaction[], isLoading: boolean}) => {
     return (
         <>
-            <HeaderRow>{generateHeaderCells(columns)}</HeaderRow>
+            <HeaderRow key={1}>{generateHeaderCells(columns)}</HeaderRow>
             {isLoading ? <Skeleton count={10}/> : generateRows(data, columns)}
             {/* {generateRows(data, columns)} */}
         </>
@@ -21,10 +21,10 @@ const IndexListHeader = ({columns, data, isLoading}:{columns:IndexItemColumn[], 
 
 const generateHeaderCells = (columns: IndexItemColumn[]):ReactElement[]=>{
     let cells = new Array<ReactElement>
-    cells.push(<input type="checkbox" />)
-    cells.push(<ColorIndicator></ColorIndicator>)
+    cells.push(<input type="checkbox"  key={1}/>)
+    cells.push(<ColorIndicator key={2}></ColorIndicator>)
     columns.map((column)=>{
-        cells.push(<HeaderCell {...{width: `${column.width}`}}>{column.name}</HeaderCell>)
+        cells.push(<HeaderCell {...{width: `${column.width}`}} key={column.key}>{column.name}</HeaderCell>)
     })
 
     return cells
@@ -32,20 +32,21 @@ const generateHeaderCells = (columns: IndexItemColumn[]):ReactElement[]=>{
 
 const generateRowCells = (row: Transaction, columns: IndexItemColumn[]) => {
     let cells = new Array<ReactElement>
-    cells.push(<input type="checkbox" />)
+    cells.push(<input type="checkbox" key={1}/>)
     const color = row.transactionTypeId == 1 ? '#4ade80' : '#f87171'
-    cells.push(<ColorIndicator color={color}></ColorIndicator>)
+    cells.push(<ColorIndicator color={color} key={2}></ColorIndicator>)
     let rowPresenter:{[key:string]: any} = {
         id: row.id,
         transactionAmount: `${currencySymbols['INR']}${row.transactionAmount}`,
-        paymentMethodId: row.paymentMethodId,
+        paymentMethodId: row.paymentMethod.name,
         transactionDate: new Date(row.transactionDate).toDateString(),
-        transactionTypeId: row.transactionTypeId,
+        transactionTypeId: row.transactionType.name,
         transactionVendor: row.transactionVendor,
+        transactionCategoryId: row.transactionCategory ? row.transactionCategory.name : "",
         comments: row.comments
     }
     for(let i=0; i < columns.length; i++){
-        cells.push(<RowCell>{rowPresenter[columns[i].key]}</RowCell>)
+        cells.push(<RowCell key={columns[i].key}>{rowPresenter[columns[i].key]}</RowCell>)
     }
     return cells
 }
@@ -53,7 +54,7 @@ const generateRowCells = (row: Transaction, columns: IndexItemColumn[]) => {
 const generateRows = (data: Transaction[], columns: IndexItemColumn[]) => {
     let rows = new Array<ReactElement>
     data.map((row) => {
-        rows.push(<ListRow>{generateRowCells(row, columns)}</ListRow>)
+        rows.push(<ListRow key={row.id}>{generateRowCells(row, columns)}</ListRow>)
     })
     return rows
 }

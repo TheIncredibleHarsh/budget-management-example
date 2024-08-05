@@ -8,13 +8,18 @@ datasource db {
 }
 
 model User {
-  id                Int             @id @default(autoincrement())
-  email             String          @unique @db.VarChar(255)
-  encryptedPassword String          @db.VarChar(65535) @map("encrypted_password")
-  passwordSalt      String          @db.VarChar(255) @map("password_salt")
-  transactions      Transaction[]
-  createdAt         DateTime        @default(now()) @map("created_at")
-  updatedAt         DateTime        @updatedAt @map("updated_at")
+  id                    Int             @id @default(autoincrement())
+  email                 String          @unique @db.VarChar(255)
+  encryptedPassword     String          @db.VarChar(65535) @map("encrypted_password")
+  passwordSalt          String          @db.VarChar(255) @map("password_salt")
+  transactions          Transaction[]
+  userProfile           UserProfile?    
+  userProfileId         Int?            @map("user_profile_id")
+  currency              String          @default("INR") @map("currency")
+  transactionCategories TransactionCategory[]
+  createdAt             DateTime        @default(now()) @map("created_at")
+  updatedAt             DateTime        @updatedAt @map("updated_at")
+  tags                  Tag[]
 
   @@map("users")
 }
@@ -87,6 +92,8 @@ model TransactionCategory {
   createdAt         DateTime        @default(now()) @map("created_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
   transactions      Transaction[]
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int             @map("user_id")
 
   @@map("transaction_categories")
 }
@@ -97,6 +104,8 @@ model Tag {
   createdAt         DateTime        @default(now()) @map("created_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
   transactions      Transaction[]
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int             @map("user_id")
 
   @@map("tags")
 }
@@ -115,4 +124,18 @@ model BankAccount {
   currentBalance  Decimal   @map("current_balance") @default(0)
 
   @@map("accounts")
+}
+
+model UserProfile {
+  id                Int             @id @default(autoincrement())
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int             @map("user_id") @unique
+  firstName         String          @map("first_name")
+  lastName          String          @map("last_name")
+  email             String          @unique @db.VarChar(255)
+  phoneNumber       String          @map("phone_number")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  @@map("user_profiles")
 }

@@ -53,16 +53,10 @@ export const SectionHeaderText = styled.span`
 export const SettingsSubSection = styled.div`
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
-    /* align-items: center; */
     width: 100%;
     padding: 20px 0;
-
-    &:hover {
-        border-bottom: 1px solid rgba(0,0,0,0.1);;
-        border-top: 1px solid rgba(0,0,0,0.1);;
-        margin: -1px 0px;
-    }
+    border-bottom: 1px solid rgba(0,0,0,0.1);;
+    margin: -1px 0px;
 
     &:hover ${EditButton} {
         display: flex;
@@ -125,7 +119,7 @@ export const ListItem = styled(MenuItem)`
     height: 35px;
 
     &:hover {
-        background: rgba(0,0,0,0.01) !important;
+        background: rgba(0,0,0,0.001) !important;
     }
 
     ${ListDeleteIcon} {
@@ -145,12 +139,13 @@ export const TagsContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 5px;
     min-width: 190px;
     max-width: 190px;
     height: 100px;
     outline: 1px solid rgba(0,0,0,0.1);
     background: rgba(0,0,0,0.03);
     border-radius: 3px;
-    padding: 5px;
+    padding: 5px 5px 0 5px;
+    column-gap: 3px;
+    line-height: 0;
 `

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet } from "react-router-dom";
 import { EmptyContainer, ItemText, LinkItem, NavbarContainer } from "./Styles";
 import Icon from "../../../shared/components/Icon";
 import { PageContainer } from "../../../shared/StyledComponents/styles";
@@ -12,6 +12,7 @@ const Settings = () => {
                 {generateItem("App settings", "app-settings", "/settings/config")}
                 {generateItem("Notifications", "notification", "")}
             </NavbarContainer>
+            <Navigate to="profile" />
             <Outlet />
         </PageContainer>
     )

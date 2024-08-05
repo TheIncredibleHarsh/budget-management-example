@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Budget from "../Budget";
 import Dashboard from "../Budget/pages/Dashboard";
 import Transactions from "../Budget/pages/Transactions";
@@ -13,6 +13,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Budget />,
         children: [
+            {
+                index: true,
+                element: <Navigate to="dashboard" />,
+            },
             {
                 path: "dashboard",
                 element: <Dashboard />,

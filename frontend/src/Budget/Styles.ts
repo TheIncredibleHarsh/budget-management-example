@@ -30,6 +30,8 @@ export const LinkItem = styled.div`
         /* border: 1px solid #d7ccff; */
         box-shadow: 0 0 0 2px #bba8ff;
     }
+    ${props => props.currentRoute.startsWith(props.to) && `
+        border-right: 3px solid #fafafa;`}
 `
 
 export const ItemText = styled.div`

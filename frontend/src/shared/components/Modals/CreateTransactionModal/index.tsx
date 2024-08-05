@@ -17,8 +17,10 @@ const CreateTransactionModal = () => {
     const [paymentMode, setPaymentMode] = useState('')
     const [comments, setComments] = useState('')
     const [transaction, setTransaction] = useState({})
+    const [categoryId, setCategoryId] = useState()
     const [transactionTypeOptions, setTransactionTypeOptions] = useState<ReactElement[]>([])
     const [paymentMethodOptions, setPaymentMethodOptions] = useState<ReactElement[]>([])
+    const [categoryOptions, setCategoryOptions] = useState<ReactElement[]>([])
     const {setLoading} = useLoading()
 
     useEffect(()=>{
@@ -28,7 +30,8 @@ const CreateTransactionModal = () => {
             transactionTypeId: transactionType,
             transactionVendor: vendor,
             paymentMethodId: paymentMode,
-            comments: comments
+            comments: comments,
+            transactionCategoryId: categoryId
         };
         setTransaction(t);
     },[amount, date, transactionType, vendor, paymentMode, comments])
@@ -80,6 +83,21 @@ const CreateTransactionModal = () => {
             }) // useMemo?
             
     }, [])
+
+    useEffect(() => {
+        fetchLookupData("category")
+            .then(result => {
+                if(result.length >= 0){
+                    let options = new Array<ReactElement>;
+                    result.map(option => {
+                        options.push(<MenuItem value={option.id}>{option.name}</MenuItem>)
+                    })
+                    
+                    setCategoryOptions(options)
+                }
+            }) // useMemo?
+            
+    }, [])
     
     return (
         <FormContainer>
@@ -89,6 +107,7 @@ const CreateTransactionModal = () => {
                 <FormField label="Date"                 type="date"     onChange={setDate}/>
                 <FormField label="Transaction type"     type="select"   onChange={setTransactionType}   options={transactionTypeOptions}/>
                 <FormField label="Vendor Name"          type="text"     onChange={setVendor}/>
+                <FormField label="Category"             type="select"   onChange={setCategoryId}        options={categoryOptions}/>
                 <FormField label="Payment Mode"         type="select"   onChange={setPaymentMode}       options={paymentMethodOptions}/>
                 <FormField label="Comments"             type="textarea" onChange={setComments}/>
             </FieldsContainer>

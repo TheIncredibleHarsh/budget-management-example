@@ -28,6 +28,9 @@ const Transactions = () => {
             {key: 'eq', name: 'Equals'},
             {key: 'contains', name: 'Contains'},
         ]},
+        {width: 150, name: 'Category',      key: 'transactionCategoryId',     filterOperators: [
+            {key: 'eq', name: 'Equals'}
+        ]},
         {width: 150, name: 'Payment Mode',      key: 'paymentMethodId',     filterOperators: [
             {key: 'eq', name: 'Equals'}
         ]}, 

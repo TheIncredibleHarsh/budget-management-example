@@ -9,8 +9,7 @@ const authenticate = (req, res, next) => {
             if(err){
                  res.sendStatus(403);
             }
-
-            req.userId = user.sub;
+            req.userId = user['sub']
             next()
         })
     } else {
